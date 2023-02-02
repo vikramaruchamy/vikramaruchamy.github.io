@@ -805,8 +805,25 @@
             if (input.files && input.files[0]) {
 
                 var reader = new FileReader();
+                $('.image-upload-wrap').hide();
 
-                reader.onload = function (e) {
+                $('.file-upload-image').attr('src', e.target.result);
+
+                $(".encodebtn2").click(function () {
+                    $('.file-upload-content').show();
+                    $('html').addClass('uploadfile');
+                })
+                $('.file-upload-content').show();
+                $('html').addClass("fileuploadsmain");
+                    $('.up-progress').toggleClass("up-progress2");
+                    $('.encodebtn').addClass('encodebtnold');
+                    $('.encodebtn2').addClass('encodebtn3');
+
+                    $('.encodebtn3').addClass('encodebtnold');
+                    $('.encodebtn4').addClass('encodebtn3');
+
+                    $('.image-title').html(input.files[0].name);
+                /*reader.onload = function (e) {
                     $('.image-upload-wrap').hide();
 
                     $('.file-upload-image').attr('src', e.target.result);
@@ -835,7 +852,7 @@
 
 
 
-                    $('html').addClass("fileuploadsmain");
+                   /* $('html').addClass("fileuploadsmain");
                     $('.up-progress').toggleClass("up-progress2");
                     $('.encodebtn').addClass('encodebtnold');
                     $('.encodebtn2').addClass('encodebtn3');
@@ -844,7 +861,7 @@
                     $('.encodebtn4').addClass('encodebtn3');
 
                     $('.image-title').html(input.files[0].name);
-                };
+                };*/
 
                 //reader.readAsDataURL(input.files[0]);
 
