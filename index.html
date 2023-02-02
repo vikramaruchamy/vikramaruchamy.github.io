@@ -464,6 +464,15 @@
                             <span itemprop="text">Select the character set, if you know it. Otherwise, leave it default.</span>
                         </li>
                         <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                            <span itemprop="text">Select the new line separator for the output</span>
+                        </li>
+                        <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                            <span itemprop="text">Enable the URL safe mode to perform URL safe encoding, if your text is a URL.</span>
+                        </li>
+                        <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                            <span itemprop="text">Enable "Split lines" option to split the Base64 string into a multiple 76 character lines as specified in the standard.</span>
+                        </li>
+                        <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
                             <span itemprop="text">Enable the live mode, if you want to encode string as you type the text</span>
                         </li>
                         <li itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
@@ -479,7 +488,8 @@
                 <ul>
                     <li>Character set: Our website uses the UTF-8 character set by default. Change this option if you want to data in which is in another charset. 
                         </li>
-                    
+                        <li>New Line Separator : Specify the new line character for the output Base64 string.</li>
+                        <li>URl Safe : Enable the URL-safe option to perform URL safe encoding. This is usefule when your text is a URL.</li>
                     <li>Split lines: The encoded data will become a continuous text without any whitespaces,
                         Check this option if you want to break it up into multiple lines as the original data. The applied character limit is 76 which is
                         defined in the MIME (RFC 2045) specification.</li>
