@@ -598,6 +598,7 @@
     </footer>
     <a onclick="topFunction()" id="myBtn" title="Go to top" style="display: block;"></a>
 
+
     <!-- Optional JavaScript -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -607,9 +608,6 @@
     <script src="assets/js/stats.min.js"></script>
     <script src="assets/js/custom.js"></script>
     <script>
-       
-
-
         $(document).ready(function () {
 
             $("#navbarNav .navbar-nav  li").click(function () {
@@ -717,28 +715,12 @@
                     '#base64').text());
             }
         });
-        function handleFileEncode() {
-            //var file = document.getElementById('fileinput').files[0];
-            var file =_("files").files[0];
-            var reader = new FileReader();
-            reader.addEventListener("load", () => {
-     
-            sessionStorage.setItem("Base64String", reader.result);
-            alert(reader.result);
-      //document.getElementById("txtop").value = sessionStorage.getItem("Base64String");
-            },
-            false
-            );
-            reader.readAsDataURL(file);
-        }
+
         function processChange() {
             var newVal = '';
-            if(_("files").files[0]!=""){
-                handleFileEncode();
-            }else{
             var inputVal = $('#encoded').val();
             newVal = window.btoa(inputVal);
-           
+
             $('.encodebtn').click(function () {
                 $('#base64').text(newVal);
             })
@@ -749,7 +731,7 @@
             $('.formcode3').keyup(function () {
                 $('#base64').text(newVal);
             })
-        }
+
 
 
         }
@@ -805,25 +787,8 @@
             if (input.files && input.files[0]) {
 
                 var reader = new FileReader();
-                $('.image-upload-wrap').hide();
 
-                $('.file-upload-image').attr('src', e.target.result);
-
-                $(".encodebtn2").click(function () {
-                    $('.file-upload-content').show();
-                    $('html').addClass('uploadfile');
-                })
-                $('.file-upload-content').show();
-                $('html').addClass("fileuploadsmain");
-                    $('.up-progress').toggleClass("up-progress2");
-                    $('.encodebtn').addClass('encodebtnold');
-                    $('.encodebtn2').addClass('encodebtn3');
-
-                    $('.encodebtn3').addClass('encodebtnold');
-                    $('.encodebtn4').addClass('encodebtn3');
-
-                    $('.image-title').html(input.files[0].name);
-                /*reader.onload = function (e) {
+                reader.onload = function (e) {
                     $('.image-upload-wrap').hide();
 
                     $('.file-upload-image').attr('src', e.target.result);
@@ -835,7 +800,7 @@
                     $('.file-upload-content').show();
 
 
-                    /*var files = _("files").files[0];
+                    var files = _("files").files[0];
                     // alert(file.name+" | "+file.size+" | "+file.type);
                     var formdata = new FormData();
                     formdata.append("files", files);
@@ -847,12 +812,12 @@
                         "upload.php"
                     ); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
                     //use file_upload_parser.php from above url
-                    ajax.send(formdata);*/
+                    ajax.send(formdata);
 
 
 
 
-                   /* $('html').addClass("fileuploadsmain");
+                    $('html').addClass("fileuploadsmain");
                     $('.up-progress').toggleClass("up-progress2");
                     $('.encodebtn').addClass('encodebtnold');
                     $('.encodebtn2').addClass('encodebtn3');
@@ -861,9 +826,9 @@
                     $('.encodebtn4').addClass('encodebtn3');
 
                     $('.image-title').html(input.files[0].name);
-                };*/
+                };
 
-                //reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(input.files[0]);
 
             } else {
                 removeUpload();
