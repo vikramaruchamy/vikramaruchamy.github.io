@@ -362,7 +362,7 @@
                                     </div>
                                 </form>
                                 <a href="#" id="" class="encodebtn">ENCODE</a>
-                                <a href="#" id="" class="encodebtn2">ENCODE</a>
+                                <!-- <a href="#" id="" class="encodebtn2">ENCODE Test</a> -->
                             </div>
                         </div>
 
@@ -607,6 +607,9 @@
     <script src="assets/js/stats.min.js"></script>
     <script src="assets/js/custom.js"></script>
     <script>
+       
+
+
         $(document).ready(function () {
 
             $("#navbarNav .navbar-nav  li").click(function () {
@@ -714,12 +717,28 @@
                     '#base64').text());
             }
         });
-
+        function handleFileEncode() {
+            //var file = document.getElementById('fileinput').files[0];
+            var file =_("files").files[0];
+            var reader = new FileReader();
+            reader.addEventListener("load", () => {
+     
+            sessionStorage.setItem("Base64String", reader.result);
+            alert(reader.result);
+      //document.getElementById("txtop").value = sessionStorage.getItem("Base64String");
+            },
+            false
+            );
+            reader.readAsDataURL(file);
+        }
         function processChange() {
             var newVal = '';
+            if(_("files").files[0]!=""){
+                handleFileEncode();
+            }else{
             var inputVal = $('#encoded').val();
             newVal = window.btoa(inputVal);
-
+           
             $('.encodebtn').click(function () {
                 $('#base64').text(newVal);
             })
@@ -730,7 +749,7 @@
             $('.formcode3').keyup(function () {
                 $('#base64').text(newVal);
             })
-
+        }
 
 
         }
@@ -785,7 +804,7 @@
 
             if (input.files && input.files[0]) {
 
-                var reader = new FileReader();
+               /* var reader = new FileReader();
 
                 reader.onload = function (e) {
                     $('.image-upload-wrap').hide();
@@ -825,9 +844,9 @@
                     $('.encodebtn4').addClass('encodebtn3');
 
                     $('.image-title').html(input.files[0].name);
-                };
+                };*/
 
-                reader.readAsDataURL(input.files[0]);
+                //reader.readAsDataURL(input.files[0]);
 
             } else {
                 removeUpload();
