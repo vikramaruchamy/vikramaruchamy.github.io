@@ -251,8 +251,8 @@
 
                             <div class="livedemo">
                                 <h4 class="livedemos">Live mode</h4>
-                                <input type="checkbox" name="graduate" hidden="hidden" id="username3">
-                                <label class="switch" for="username3"></label>
+                                <input type="checkbox" name="livemode" hidden="hidden" id="livemode">
+                                <label class="switch" for="livemode"></label>
                             </div>
                         </div>
                     </div>
@@ -565,27 +565,31 @@
         });
 
         $(document).ready(function () {
-            $('[name="graduate"]').change(function () {
+            $('[name="livemode"]').change(function () {
                 $('html').removeClass("uploadfile");
                 $('html').removeClass("fileuploadsmain");
                 $('.formcode').toggleClass("formcode3");
-                if ($('[name="graduate"]:checked').is(":checked")) {
+                if ($('[name="livemode"]:checked').is(":checked")) {
                     $("#fileuploadtitle, #uplod_file2, #encodebtns2,.file-upload-content").css(
                         "display", "none");
-                    $("textarea#base64,button#copy").css("display", "block")
+                    //$("textarea#base64,button#copy").css("display", "block");
+                    $("#fileuploadtitle, #uplod_file2, #encodebtns2, form#upload_form").css("display",
+                        "none");
+                    $(".upload h4, #upload_form").css("display", "none");
                 } else {
                     $("#fileuploadtitle, #uplod_file2, #encodebtns2, form#upload_form").css("display",
                         "block");
+                    $(".upload h4, #upload_form").css("display", "block");
                 }
             });
         });
-
+        
         $("#files").click(function () {
             $('html').addClass("fileuploads");
         })
 
         $(document).ready(function () {
-            $('#username3').click(function () {
+            $('#livemode').click(function () {
                 $('#encoded').val('');
                 $('#decoded').val('');
                 $('.livedemos').toggleClass('lived')
@@ -593,17 +597,53 @@
         });
 
         $(document).ready(function () {
+            $('#encoded').on("input", function(event) {
+             
+                if ($('#encoded').val() !== '') {
+                    $("#fileuploadtitle, #uplod_file2, #encodebtns2, form#upload_form").css("display",
+                        "none");
+                    $(".upload h4, #upload_form").css("display", "none");
+                    $('#encodebtns2').css({
+                        opacity: 9
+                    });
+
+                    
+                } else {
+                    var liveMode = document.getElementById('livemode').checked;
+                
+                    if(!liveMode){
+                    $("#fileuploadtitle, #uplod_file2, #encodebtns2, form#upload_form").css("display",
+                        "block");
+                    $(".upload h4, #upload_form").css("display", "block");
+                    $('#encodebtns2').css({
+                        opacity: 0.5
+                    });
+                }
+                    //clear the output once the input is cleared
+                    $('#base64').text("");   
+                }
+       
+            });
+
             $('#encoded').on('keyup', function () {
                 if ($('#encoded').val() !== '') {
+                    $("#fileuploadtitle, #uplod_file2, #encodebtns2, form#upload_form").css("display",
+                        "none");
                     $(".upload h4, #upload_form").css("display", "none");
                     $('#encodebtns2').css({
                         opacity: 9
                     });
                 } else {
+                    var liveMode = document.getElementById('livemode').checked;
+                
+                    if(!liveMode){
+                    $("#fileuploadtitle, #uplod_file2, #encodebtns2, form#upload_form").css("display",
+                        "block");
                     $(".upload h4, #upload_form").css("display", "block");
                     $('#encodebtns2').css({
                         opacity: 0.5
                     });
+                }
                 }
             })
         });
@@ -617,9 +657,6 @@
 
     <script>
        
-        $('#encoded').keyup(function () {
-            processChange();
-        });
 
         $('#encoded').on('drop', function (e) {
             e.preventDefault();
@@ -645,10 +682,14 @@
         
 
         $('#encoded').keyup(function () {
-            processChange();
+            var liveMode = document.getElementById('livemode').checked;
+                //decode file only if live mode is unselected
+                if(liveMode){
+                    processChange();
+                }
         });
 
-        $('#encodeded').on('drop', function (e) {
+        $('#encoded').on('drop', function (e) {
             e.preventDefault();
             e.stopPropagation();
             var file = e.originalEvent.dataTransfer.files[0];
@@ -676,20 +717,15 @@
             var inputVal = $('#encoded').val();
             var selected = document.getElementById('files');
            
-            newVal = window.atob(inputVal);
+            newVal = window.btoa(inputVal);
             if (inputVal !==undefined && inputVal!=="") {
-              
-                $('#encodebtns').click(function () {
-                    $('#base64').text(newVal);
-                });
-                $('.formcode3').keyup(function () {
-                    $('#base64').text(newVal);
-                });
-                
-               
+                $('#base64').text(newVal);   
             } else {
-               
+                var liveMode = document.getElementById('livemode').checked;
+                //encode file only if live mode is unselected
+                if(!liveMode){
                 encodeFile();
+                }
             }
         }
         
