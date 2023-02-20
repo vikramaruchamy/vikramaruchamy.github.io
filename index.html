@@ -800,15 +800,15 @@
             $('.image-upload-wrap').removeClass('image-dropping');
 
         });
-
+        var base64Text="";
         // .txt
         function encodeFile(e) {
             var file = document.getElementById('files').files[0];
           
             var reader = new FileReader();
             reader.addEventListener("load", () => {
-                
-                    sessionStorage.setItem("Base64String", reader.result);
+                base64Text =reader.result;
+                    //sessionStorage.setItem("Base64String", reader.result);
                 },
                 false
             );
@@ -817,7 +817,8 @@
 
         // download
         function downloadFile() {
-            const blob = new Blob([sessionStorage.getItem("Base64String")], {
+            //const blob = new Blob([sessionStorage.getItem("Base64String")], {
+                const blob = new Blob([base64Text], {
                 type: 'application/octet-stream'
             });
             const link = document.createElement('a');
